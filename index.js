@@ -35,42 +35,56 @@
 // import express
 const express = require('express');
 
-// import cors
-const cors = require('cors');
-
 // create server
 const server = express();
 
+// import cors
+const cors = require('cors');
+
+// import router
+const router = require('./router');
+
 // set port
-const PORT = 4000 || process.env.PORT;
+const PORT = process.env.PORT || 4000;
+
+// server using cors
+server.use(cors()) // ✅ CORS middleware first
+
+// parse upcoming datas -> returns middleware to parse the data
+server.use(express.json());  // ✅ JSON parser before routes
+
+// use router (should always come after middleware)
+server.use(router);  // ✅ Router after middleware
 
 // listen
 server.listen(PORT, () => {
     console.log(`Server started at localhost://${PORT}`);  
 })
 
-// server using cors
-server.use(cors())
 
-// parse upcoming datas -> returns middleware to parse the data
-server.use(express.json())
 
-// GET request
-server.get('/', (req, res) => {
-    res.send('GET request recieved!');
-})
 
-// POST request
-server.post('/', (req, res) => {
-    res.send('POST request sent success!');
-})
+// // server.use(express.json())
+// server.use(express.json());          // For JSON data
+// server.use(express.urlencoded({ extended: true })); // For form data
 
-// PUT request
-server.put('/', (req, res) => {
-    res.send('PUT request sent success!');
-})
 
-// DELETE request
-server.delete('/', (req, res) => {
-    res.send('DELETE request sent success!');
-})
+// // GET request
+// server.get('/', (req, res) => {
+//     res.send('GET request recieved!');
+// })
+
+// // POST request
+// server.post('/', (req, res) => {
+//     res.send('POST request sent success!');
+// })
+
+// // PUT request
+// server.put('/', (req, res) => {
+//     res.send('PUT request sent success!');
+// })
+
+// // DELETE request
+// server.delete('/', (req, res) => {
+//     res.send('DELETE request sent success!');
+// })

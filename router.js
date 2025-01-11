@@ -1,8 +1,22 @@
+// const express = require('express');
+
+// const userController = require('./controller/userController');
+
+// // create an instance for router
+// const router = new express.Router();
+
+// module.exports = router;
+
+// import express
 const express = require('express');
 
-const userController = require('./controller/userController');
-
-// create an instance for router
+// create instance router
 const router = new express.Router();
 
-module.exports = router;
+// import userController
+const userController = require('./controller/userController');
+
+// REGISTER
+router.post('/register', userController.register)
+
+module.exports = router
