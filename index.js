@@ -32,6 +32,13 @@
 // //     res.send('delete request recieved');
 // // })
 
+// import dotenv
+// const dotenv = require('dotenv');
+require('dotenv').config();
+
+// import connection
+require('./connection');
+
 // import express
 const express = require('express');
 
