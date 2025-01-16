@@ -24,15 +24,15 @@ exports.register = async (req, res) => {
                 username,
                 email,
                 password,
-                profile,
-                linkedin,
-                github
+                profile: "",
+                linkedin: "",
+                github: ""
             })
             newUser.save()
             await res.status(200).json(newUser)
         }
     } catch (error) {
-        res.send(401).json(error);
+        res.status(401).json(error); //sendStatus returns Unathorized, while status returns custom message inside .json()
     }
     
     // res.send('test');
