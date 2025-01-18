@@ -4,8 +4,13 @@
 //     console.log('inside register function');
 // }
 
+// import users
 const users = require("../model/userModel");
 
+// import JWT (Json Web Token)
+const jwt = require('jsonwebtoken');
+
+// register
 exports.register = async (req, res) => {
     console.log('inside register function');
 
@@ -36,4 +41,25 @@ exports.register = async (req, res) => {
     }
     
     // res.send('test');
+}
+
+// login
+exports.login = async (req, res) => {
+    console.log('inside login function');
+
+    const {email, password} = req.body
+    console.log(email, password);
+
+    try {
+        const existingUsers = await users.findOne({email, password})
+        if(existingUsers) {
+            const token = jwt.sign({userId: existingUsers._id}, "secretKey");
+            res.status(200).json({existingUsers, token})
+        } else {
+            res.status(406).json('email or password wrong!')
+        }
+    } catch (error) {
+        res.status(401).json(error);
+    }
+    
 }
