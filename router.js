@@ -19,6 +19,9 @@ const projectController = require('./controller/projectController');
 // import jwtMiddleware
 const jwtMiddleware = require('./middleware/jwtMiddleware');
 
+// import multerMiddleware
+const multerConfig = require('./middleware/multerMiddleware');
+
 // create instance router
 const router = new express.Router();
 
@@ -29,6 +32,6 @@ router.post('/register', userController.register)
 router.post('/login', userController.login)
 
 // ADD PROJECTS (FORM-DATA)
-router.post('/addProjects', jwtMiddleware, projectController.addProjects)
+router.post('/addProjects', jwtMiddleware, multerConfig.single('projectImage'), projectController.addProjects)
 
 module.exports = router
